@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import inquirer from "inquirer";
-import path from "node:path";
 import fs from "fs";
 
 inquirer
@@ -25,6 +24,7 @@ inquirer
       fs.writeFileSync(
         "public/index.html",
         `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${setup}</title></head><body><div class="root"></div></body></html>`
+
       );
       fs.mkdirSync("src", { recursive: true });
       fs.mkdirSync("src/stylesheets", { recursive: true });
@@ -38,7 +38,7 @@ inquirer
         const container = document.querySelector('.root');
         const root = createRoot(container); // createRoot(container!) if you use TypeScript
         root.render(<>
-            <h1>test</h1>
+            <h1>${setup}</h1>
             </>);`
       );
       fs.writeFileSync(".gitignore", "/node_modules");
