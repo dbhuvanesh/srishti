@@ -18,7 +18,7 @@
   ],
   "type": "module",
   "author": "Bhuvanesh Duvvuri",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/dbhuvanesh/srishti/issues"
   },
