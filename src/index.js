@@ -10,10 +10,15 @@ inquirer
       name: "project",
       message: "What's your project name ?",
     },
+    {
+      type: "input",
+      name: "author",
+      message: "What's your name ?",
+    },
   ])
   .then(function (anwser) {
-    console.log(typeof anwser);
     const setup = anwser.project;
+    const author = anwser.author;
     fs.mkdir(setup, (err) => {
       if (err) {
         console.log(err);
@@ -24,7 +29,6 @@ inquirer
       fs.writeFileSync(
         "public/index.html",
         `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${setup}</title></head><body><div class="root"></div></body></html>`
-
       );
       fs.mkdirSync("src", { recursive: true });
       fs.mkdirSync("src/stylesheets", { recursive: true });
@@ -34,7 +38,8 @@ inquirer
       );
       fs.writeFileSync(
         "src/index.js",
-        `import { createRoot } from 'react-dom/client';
+        `import React from 'react';
+        import { createRoot } from 'react-dom/client';
         const container = document.querySelector('.root');
         const root = createRoot(container); // createRoot(container!) if you use TypeScript
         root.render(<>
@@ -48,34 +53,41 @@ inquirer
       );
       fs.writeFileSync(
         "package.json",
-        `{
-            "name": "${setup}",
-            "version": "1.0.0",
-            "description": "",
-            "main": "./src/index.js",
-            "keywords": [],
-            "author": "",
-            "license": "ISC",
-            "scripts": {
-              "clean": "rm dist/bundle.js",
-              "start-dev-server": "nodemon ./src/index.js"
-            },
-            "dependencies": {
-              "react": "^18.2.0",
-              "react-dom": "^18.2.0"
-            },
-            "devDependencies": {
-              "webpack": "^5.88.2",
-              "webpack-cli": "^5.1.4",
-              "@babel/preset-react": "^7.22.15",
-              "babel-loader": "^9.1.3",
-              "@babel/core": "^7.22.20",
-              "@babel/preset-env": "^7.22.20",
-              "css-loader": "^6.8.1",
-              "style-loader": "^3.3.3",
-              "html-webpack-plugin": "^5.5.3"
-            }
-          }`
+        `
+        {
+          "name": ${setup},
+          "version": "1.0.0",
+          "main": "./src/index.js",
+          "scripts": {
+            "build": "webpack",
+            "start": "webpack-dev-server"
+          },
+          "keywords": [
+            "react",
+            "application"
+          ],
+          "author": ${author},
+          "license": "ISC",
+          "description": "",
+          "dependencies": {
+            "react": "^18.2.0",
+            "react-dom": "^18.2.0",
+            "react-router-dom": "^6.19.0"
+          },
+          "devDependencies": {
+            "@babel/preset-env": "^7.23.3",
+            "@babel/preset-react": "^7.23.3",
+            "babel-loader": "^9.1.3",
+            "css-loader": "^6.8.1",
+            "html-webpack-plugin": "^5.5.3",
+            "style-loader": "^3.3.3",
+            "webpack": "^5.89.0",
+            "webpack-cli": "^5.1.4",
+            "webpack-dev-server": "^4.15.1"
+          }
+        }
+        
+        `
       );
       fs.writeFileSync(
         "webpack.config.js",

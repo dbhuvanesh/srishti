@@ -5,4 +5,11 @@ Srishti helps you in creating your react app faster and with custom webpack setu
 ```
  npx run srishti
 ```
+
 A single command creates your react web application.
+
+Install your npm dependencies
+
+```
+ npm i
+```
