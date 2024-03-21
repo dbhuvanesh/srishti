@@ -1,41 +1,29 @@
-#!/usr/bin/env node
-
-import inquirer from "inquirer";
-import fs from "fs";
+import fs from "node:fs";
 import chalk from "chalk";
+import { exec, spawn } from "node:child_process";
+import * as readline from "node:readline/promises";
+import { stdin as input, stdout as output, stdout } from "node:process";
+import { error } from "node:console";
 
-const questions = [
-  {
-    type: "input",
-    name: "project",
-    message: chalk.bgBlue.white("What's your project name ?"),
-  },
-  {
-    type: "input",
-    name: "author",
-    message: chalk.bgBlue.white("What's your name ?"),
-  },
-];
-inquirer.prompt(questions).then(function (anwser) {
-  const setup = anwser.project;
-  const author = anwser.author;
-  fs.mkdir(setup, (err) => {
+const rl = readline.createInterface({ input, output });
+
+const project = await rl.question(
+  chalk.bold.whiteBright("Your project name : ")
+);
+const author = await rl.question(chalk.bold.whiteBright("Your name : "));
+
+(() => {
+  fs.mkdir(project, (err) => {
     if (err) {
       console.log(err);
     }
-    console.log("Directory created with the name: " + setup);
-    process.chdir(setup);
+    process.chdir(project);
     fs.mkdirSync("public", { recursive: true });
     fs.writeFileSync(
       "public/index.html",
-      `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${setup}</title></head><body><div class="root"></div></body></html>`
+      `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${project}</title></head><body><div class="root"></div></body></html>`
     );
     fs.mkdirSync("src", { recursive: true });
-    fs.mkdirSync("src/stylesheets", { recursive: true });
-    fs.writeFileSync(
-      "src/stylesheets/global.css",
-      `*{margin:0;padding:0;box-sizing;border-box}`
-    );
     fs.writeFileSync(
       "src/index.js",
       `import React from 'react';
@@ -43,7 +31,7 @@ inquirer.prompt(questions).then(function (anwser) {
         const container = document.querySelector('.root');
         const root = createRoot(container); // createRoot(container!) if you use TypeScript
         root.render(<>
-            <h1>${setup}</h1>
+            <h1>${project}</h1>
             </>);`
     );
     fs.writeFileSync(".gitignore", "/node_modules");
@@ -55,7 +43,7 @@ inquirer.prompt(questions).then(function (anwser) {
       "package.json",
       `
         {
-          "name": "${setup}",
+          "name": "${project}",
           "version": "1.0.0",
           "main": "./src/index.js",
           "scripts": {
@@ -71,6 +59,7 @@ inquirer.prompt(questions).then(function (anwser) {
           "description": "",
           "dependencies": {
             "react": "^18.2.0",
+            "medhya":"^1.0.130",
             "react-dom": "^18.2.0",
             "react-router-dom": "^6.19.0"
           },
@@ -137,4 +126,6 @@ inquirer.prompt(questions).then(function (anwser) {
         `
     );
   });
-});
+})();
+
+rl.close();

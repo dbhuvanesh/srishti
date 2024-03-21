@@ -1,21 +1,15 @@
 {
   "name": "srishti",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Srishti, helps you in creating your react app faster and with custom webpack setup.",
   "main": "./src/index.js",
   "scripts": {
-    "run": "node ./src/index.js",
-    "test": "nodemon './src/index.js'"
+    "test": "nodemon ./src/index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dbhuvanesh/srishti.git"
   },
-  "keywords": [
-    "cli-tool",
-    "nodemon",
-    "chalk"
-  ],
   "type": "module",
   "author": "Bhuvanesh Duvvuri",
   "license": "MIT",
@@ -24,11 +18,9 @@
   },
   "homepage": "https://github.com/dbhuvanesh/srishti#readme",
   "dependencies": {
-    "chalk": "^5.3.0",
-    "inquirer": "^9.2.16"
+    "chalk": "^5.3.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0",
-    "prettier": "^3.2.5"
+    "nodemon": "^3.1.0"
   }
 }
