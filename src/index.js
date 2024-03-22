@@ -2,9 +2,7 @@
 
 import fs from "node:fs";
 import chalk from "chalk";
-import { stdin as input, stdout as output, stdout } from "node:process";
 import readline from "node:readline/promises";
-import { exec, spawn } from "node:child_process";
 const rl = readline.createInterface({ input, output });
 
 const project = await rl.question(
