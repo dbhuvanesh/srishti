@@ -1,9 +1,8 @@
-#!/usr/bin/env node
-
 import fs from "node:fs";
 import chalk from "chalk";
 import readline from "node:readline/promises";
 const rl = readline.createInterface({ input, output });
+import { stdin as input, stdout as output, stdout } from "node:process";
 
 const project = await rl.question(
   chalk.bold.whiteBright("Your project name : ")

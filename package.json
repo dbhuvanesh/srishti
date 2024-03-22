@@ -1,6 +1,6 @@
 {
   "name": "srishti",
-  "version": "1.0.72",
+  "version": "1.0.73",
   "description": "Srishti, helps you in creating your react app faster and with custom webpack setup.",
   "main": "./src/index.js",
   "scripts": {
@@ -19,7 +19,6 @@
   "homepage": "https://github.com/dbhuvanesh/srishti#readme",
   "dependencies": {
     "chalk": "^5.3.0",
-    "enquirer": "^2.4.1",
     "prompts": "^2.4.2"
   },
   "devDependencies": {
