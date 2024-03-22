@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import fs from "node:fs";
 import chalk from "chalk";
 import { stdin as input, stdout as output, stdout } from "node:process";
