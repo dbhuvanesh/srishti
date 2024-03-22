@@ -1,6 +1,6 @@
 {
   "name": "srishti",
-  "version": "1.0.731",
+  "version": "0.0.1",
   "description": "Srishti, helps you in creating your react app faster and with custom webpack setup.",
   "main": "./src/index.js",
   "scripts": {
