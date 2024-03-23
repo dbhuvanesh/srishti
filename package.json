@@ -1,14 +1,14 @@
 {
   "name": "srishti",
-  "version": "1.1.2",
+  "version": "1.1.21",
   "description": "Srishti, helps you in creating your react app faster and with custom webpack setup.",
-  "main": "src/index.js",
+  "main": "./src/index.js",
   "bin": {
     "srishti": "./src/index.js"
   },
   "scripts": {
-    "start": "node src/index.js",
-    "test": "nodemon src/index.js"
+    "start": "node ./src/index.js",
+    "test": "nodemon ./src/index.js"
   },
   "type": "module",
   "repository": {
