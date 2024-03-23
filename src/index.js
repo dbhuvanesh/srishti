@@ -1,9 +1,7 @@
-#!/usr/bin/env node
-
 import fs from "node:fs";
 import chalk from "chalk";
-import { stdin as input, stdout as output } from "node:process";
 import readline from "node:readline/promises";
+import { stdin as input, stdout as output } from "node:process";
 const rl = readline.createInterface({ input, output });
 
 const project = await rl.question(
@@ -25,13 +23,17 @@ const author = await rl.question(chalk.bold.whiteBright("Your name : "));
     fs.mkdirSync("src", { recursive: true });
     fs.writeFileSync(
       "src/index.js",
-      `import React from 'react';
-        import { createRoot } from 'react-dom/client';
-        const container = document.querySelector('.root');
-        const root = createRoot(container); // createRoot(container!) if you use TypeScript
-        root.render(<>
-            <h1>${project}</h1>
-            </>);`
+      `import React from "react";
+      import "medhya/css/medhya.css";
+      import { createRoot } from "react-dom/client";
+      const container = document.querySelector(".root");
+      const root = createRoot(container);
+      root.render(
+        <>
+          <h1 className="title">${project}</h1>
+        </>
+      );
+      `
     );
     fs.writeFileSync(".gitignore", "/node_modules");
     fs.writeFileSync(
@@ -79,50 +81,53 @@ const author = await rl.question(chalk.bold.whiteBright("Your name : "));
     );
     fs.writeFileSync(
       "webpack.config.js",
-      `const webpack = require('webpack');
-        const path = require('path');
-        const htmlwebpackplugin = require('html-webpack-plugin')
-        module.exports = {
-            entry: './src/index.js',
-            output: {
-                path: path.resolve(__dirname, 'dist'),
-                filename: 'bundle.js'
+      `
+      const webpack = require("webpack");
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+module.exports = {
+  entry: "./src/index.js",
+  mode: "development",
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",
+  },
+  devServer: {
+    open: true,
+    port: 5000,
+    historyApiFallback: true,
+  },
+  module: {
+    rules: [
+      {
+        test: /.(js|jsx)$/,
+        use: "babel-loader",
+        exclude: /node_modules/,
+      },
+      {
+        test: /.css$/,
+        use: ["style-loader", "css-loader"],
+        exclude: /.module.css$/,
+      },
+      {
+        test: /.css$/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 1,
+              modules: true,
             },
-            module: {
-                rules: [
-                    {
-                        test: /\.(js|jsx)$/,
-                        use: 'babel-loader',
-                        exclude: /node_modules/
-                    },
-                    {
-                        test: /\.css$/,
-                        use: [
-                            'style-loader',
-                            'css-loader'
-                        ],
-                        exclude: /\.module\.css$/
-                    },
-                    {
-                        test: /\.css$/,
-                        use: [
-                            'style-loader',
-                            {
-                                loader: 'css-loader',
-                                options: {
-                                    importLoaders: 1,
-                                    modules: true
-                                }
-                            }
-                        ],
-                        include: /\.module\.css$/
-                    }
-                ],
-                plugins: new htmlwebpackplugin({ template: "./public/index.html" })
-            }
-        };
-        
-        `
+          },
+        ],
+        include: /.module.css$/,
+      },
+    ],
+  },
+  plugins: [new HtmlWebpackPlugin({ template: "./public/index.html" })],
+};
+      `
     );
   });
 })();
