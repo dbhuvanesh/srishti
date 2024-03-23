@@ -1,8 +1,10 @@
+#!/usr/bin/env node
+
 import fs from "node:fs";
 import chalk from "chalk";
+import { stdin as input, stdout as output } from "node:process";
 import readline from "node:readline/promises";
 const rl = readline.createInterface({ input, output });
-import { stdin as input, stdout as output, stdout } from "node:process";
 
 const project = await rl.question(
   chalk.bold.whiteBright("Your project name : ")
@@ -43,9 +45,6 @@ const author = await rl.question(chalk.bold.whiteBright("Your name : "));
           "name": "${project}",
           "version": "1.0.0",
           "main": "./src/index.js",
-          "bin":{
-            "srishti":"./src/index.js"
-          }
           "scripts": {
             "build": "webpack",
             "start": "webpack-dev-server"
